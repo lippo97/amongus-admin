@@ -13,7 +13,6 @@ from config import static_templates, monitor
 from utils import check_privileges, join as _join, leave as _leave
 
 logging.basicConfig(level=logging.INFO)
-load_dotenv()
 
 GA_ROLE_NAME=os.getenv("GA_ROLE_NAME") or 'Game Admin'
 TOKEN = os.getenv("LOGIN_TOKEN")
