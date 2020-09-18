@@ -9,21 +9,22 @@ class Controller:
         self.vision = vision
         self.period = period
 
-    def _find_template(self, name):
-        matches = self.vision.find_template(name)
+    def _find_template(self, state, name):
+        matches = self.vision.find_template(state, name)
         return np.shape(matches)[1] >= 1
 
     def _is_vote_phase(self):
-        def is_vote_phase_title1():
-            return self._find_template('vote-title1')
+        def chat_arrow_message():
+            return self._find_template('voting', 'chat-arrow-message')
 
-        def is_vote_phase_title2():
-            return self._find_template('vote-title2')
+        def chat_arrow_open():
+            return self._find_template('voting', 'chat-arrow-open')
 
-        def is_vote_phase_arrow():
-            return self._find_template('vote-arrow')
+        def chat_arrow():
+            return self._find_template('voting', 'chat-arrow')
 
-        return is_vote_phase_title1() or is_vote_phase_title2() or is_vote_phase_arrow()
+        return chat_arrow() or chat_arrow_open() or chat_arrow_message()
+
 
     def _is_playing_phase(self):
         return not self._is_vote_phase()
@@ -32,7 +33,11 @@ class Controller:
         self.vision.refresh_frame()
         if self._is_vote_phase():
             self.fsm.step('voting')
-        elif self._is_playing_phase():
-            self.fsm.step('playing')
         else:
-            raise Exception('Illegal State')
+            self.fsm.step('playing')
+        # TODO: Temporary workaround because we have just two states currently.
+        #
+        # elif self._is_playing_phase():
+        #     self.fsm.step('playing')
+        # else:
+        #     raise Exception('Illegal State')

@@ -5,7 +5,9 @@ import numpy as np
 
 class Vision:
     def __init__(self, static_templates, monitor):
-        self.templates = { k: cv2.imread(v, 0) for (k, v) in static_templates.items() }
+        def load_images(images):
+            return { k: cv2.imread(v, 0) for (k, v) in images.items() }
+        self.templates = { k: load_images(v) for (k, v) in static_templates.items() }
         self.monitor = monitor
         self.screen = mss()
         self.frame = None
@@ -34,7 +36,7 @@ class Vision:
         return matches
 
 
-    def find_template(self, name, image=None, threshold=0.9):
+    def find_template(self, state, name, image=None, threshold=0.9):
         if image is None:
             if self.frame is None:
                 self.refresh_frame()
@@ -43,6 +45,6 @@ class Vision:
 
         return self._match_template(
             image,
-            self.templates[name],
+            self.templates[state][name],
             threshold
         )
