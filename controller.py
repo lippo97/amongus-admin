@@ -23,7 +23,13 @@ class Controller:
         def chat_arrow():
             return self._find_template('voting', 'chat-arrow')
 
-        return chat_arrow() or chat_arrow_open() or chat_arrow_message()
+        def win_title():
+            return self._find_template('post_game', 'win_title')
+
+        def lose_title():
+            return self._find_template('post_game', 'lose_title')
+
+        return chat_arrow() or chat_arrow_open() or chat_arrow_message() or win_title() or lose_title()
 
 
     def _is_playing_phase(self):
