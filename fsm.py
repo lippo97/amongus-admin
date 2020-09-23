@@ -3,7 +3,7 @@ from copy import copy
 import logging
 
 PLAYING_TIMEOUT = 3
-VOTING_TIMEOUT = 3
+VOTING_TIMEOUT = 5
 
 class AbstractState():
     def __init__(self, name):

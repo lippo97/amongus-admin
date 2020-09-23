@@ -14,22 +14,36 @@ class Controller:
         return np.shape(matches)[1] >= 1
 
     def _is_vote_phase(self):
-        def chat_arrow_message():
-            return self._find_template('voting', 'chat-arrow-message')
 
-        def chat_arrow_open():
-            return self._find_template('voting', 'chat-arrow-open')
+        def vote_title1():
+            return self._find_template('voting', 'vote-title1')
 
-        def chat_arrow():
-            return self._find_template('voting', 'chat-arrow')
+        def vote_title2():
+            return self._find_template('voting', 'vote-title2')
+
+        def vote_title_dead1():
+            return self._find_template('voting', 'vote-title-dead1')
+
+        def vote_title_dead2():
+            return self._find_template('voting', 'vote-title-dead2')
+
+        # def play_again():
+        #     return self._find_template('post_game', 'play-again')
 
         def win_title():
-            return self._find_template('post_game', 'win_title')
+            return self._find_template('post_game', 'win-title')
 
         def lose_title():
-            return self._find_template('post_game', 'lose_title')
+            return self._find_template('post_game', 'lose-title')
 
-        return chat_arrow() or chat_arrow_open() or chat_arrow_message() or win_title() or lose_title()
+        def public_label():
+            return self._find_template('post_game', 'public-label')
+
+        def private_label():
+            return self._find_template('post_game', 'private-label')
+
+        return vote_title1() or vote_title2() or vote_title_dead1() or vote_title_dead2() or win_title() or lose_title() or private_label() or public_label()
+        # return chat_arrow() or chat_arrow_open() or chat_arrow_message() or play_again()
 
 
     def _is_playing_phase(self):
